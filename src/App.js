@@ -1,23 +1,61 @@
-import logo from './logo.svg';
 import './App.css';
+import { useRoutes, Outlet, Link } from 'react-router-dom'
+
+import EntryPage from './Components/EntryPage';
+import CocktailHeader from './Components/CocktailHeader';
+import CocktailFooter from './Components/CocktailFooter';
+import CocktailGuestPage from './Components/CocktailGuestPage';
+import AboutChristina from './Components/AboutChristina';
+import AboutMe from './Components/AboutMe';
+import AuthForm from './Components/AuthForm';
+import UserHeader from './Components/User-Pages/UserHeader';
+import UserLanding from './Components/User-Pages/UserLanding';
+import PostForm from './Components/User-Pages/PostForm';
+import MapView from './Components/User-Pages/MapView';
 
 function App() {
+
+  const routes = useRoutes([
+    {
+      path: '/',
+      element: <EntryPage/>
+    },
+    {
+      path: '/cocktailHour',
+      element: (
+        <>
+        <CocktailHeader/>
+        <Outlet/>
+        <CocktailFooter/>
+        </>        
+      ),
+      children: [
+        {index: true, element: <CocktailGuestPage/>},
+        {path: 'aboutChristina', element: <AboutChristina/>},
+        {path: 'aboutMe', element: <AboutMe/>},
+        {path: 'authForm', element: <AuthForm/>}
+      ]
+    },
+    {
+      path: '/cocktailHour/User',
+      element: (
+        <>
+        <UserHeader/>
+        <Outlet/>
+        <CocktailFooter/>
+        </>
+      ),
+      children: [
+        {index: true, element: <UserLanding/>},
+        {path: 'postForm', element: <PostForm/>},
+        {path: 'mapView', element: <MapView/>}
+      ]
+    }
+  ])
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+        {routes}
     </div>
   );
 }
