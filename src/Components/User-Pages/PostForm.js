@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import axios from 'axios';
 import PlacesAutocomplete, { geocodeByAddress, getLatLng } from 'react-places-autocomplete';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
@@ -28,17 +29,32 @@ const PostForm = () => {
         }
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
         console.log('Form submitted with the following data:');
         console.log('Address:', address);
         console.log('Latitude:', latitude);
         console.log('Longitude:', longitude);
 
-        setAddress('')
-        setNotes('')
-        setLatitude('')
-        setLongitude('')
+        const post = {
+            address: address,
+            notes: notes,
+            latitude: latitude,
+            longitude: longitude
+        }
+
+        await
+            axios
+                .post('http://localhost:1234/newPost', post)
+                .then((res) => {
+                    console.log(res.data)
+                    setAddress('')
+                    setNotes('')
+                    setLatitude('')
+                    setLongitude('')
+                    //  insert a navigate function to go to the home page to see the rendered card on the userLanding
+                })
+                .catch(err => console.log('error in axios post', err))
     };
 
     return (

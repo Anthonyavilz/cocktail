@@ -13,15 +13,8 @@ const plain = sequelize.query(`
     CREATE TABLE UserCocktails (
         cocktail_id SERIAL PRIMARY KEY,
         location_name VARCHAR(50)
-        location_data TEXT
+        location_address TEXT
         notes TEXT
         user_id INTERGER REFERENCES User(id)
     )
-
-    CREATE TABLE Locations (
-        location_id SERIAL PRIMARY KEY,
-        place_data TEXT,
-        user_id INTERGER REFERENCES User(id)
-    )
-
 `)

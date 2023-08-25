@@ -8,10 +8,10 @@ const User = sequelize.define('User', {
         allowNull: false,
         primaryKey: true
     },
-    first_name: DataTypes.STRING,
-    last_name: DataTypes.STRING,
     username: DataTypes.STRING({length: 35}),
-    password: DataTypes.STRING
+    password: DataTypes.STRING,
+    first_name: DataTypes.STRING,
+    last_name: DataTypes.STRING
 })
 
 const UserCocktails = sequelize.define('UserCocktails', {
@@ -21,21 +21,11 @@ const UserCocktails = sequelize.define('UserCocktails', {
         autoIncrement: true
     },
     location_address: DataTypes.STRING,
-    notes: DataTypes.TEXT
+    notes: DataTypes.TEXT,
+    lat: DataTypes.DOUBLE,
+    long: DataTypes.DOUBLE
 });
 
 UserCocktails.belongsTo(User, { foreignKey: 'user_id' });
 
-const Locations = sequelize.define('Locations', {
-    location_id: {
-        type: DataTypes.INTEGER,
-        primaryKey: true,
-        autoIncrement: true
-    },
-    latitude: DataTypes.DOUBLE,
-    longtiude: DataTypes.DOUBLE
-});
-
-Locations.belongsTo(User, { foreignKey: 'user_id' });
-
-module.exports = { User, UserCocktails, Locations }
+module.exports = { User, UserCocktails }

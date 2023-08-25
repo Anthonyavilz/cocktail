@@ -12,6 +12,7 @@ import UserHeader from './Components/User-Pages/UserHeader';
 import UserLanding from './Components/User-Pages/UserLanding';
 import PostForm from './Components/User-Pages/PostForm';
 import MapView from './Components/User-Pages/MapView';
+import { Wrapper } from '@googlemaps/react-wrapper'
 
 function App() {
 
@@ -55,7 +56,13 @@ function App() {
 
   return (
     <div className="App">
+      <Wrapper 
+        apiKey={process.env.REACT_APP_GOOGLE_API_KEY} 
+        version='beta'
+        libraries={['places']}
+      >
         {routes}
+      </Wrapper>
     </div>
   );
 }
