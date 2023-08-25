@@ -63,7 +63,7 @@ const PostForm = () => {
             <Typography variant="h2">Place Form</Typography>
             <Paper elevation={3} style={{ padding: '20px' }}>
             <form onSubmit={handleSubmit}>
-                <PlacesAutocomplete value={address} onChange={setAddress} onSelect={handleSelect} libraries={["places"]}>
+                <PlacesAutocomplete value={address} onChange={setAddress} onSelect={handleSelect} highlightFirstSuggestion={true} >
                 {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
                     <div>
                     <TextField
